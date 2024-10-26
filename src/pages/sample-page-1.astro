@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+import SampleContent from "@/components/SampleContent.astro";
+
+const pageTitle = "Sample Child Page 1";
+const pageDescription = "This is the first of Sample Page.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <SampleContent />
+</BaseLayout>

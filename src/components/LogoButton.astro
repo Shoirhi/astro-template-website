@@ -1,0 +1,18 @@
+---
+import Image from "astro/components/Image.astro";
+
+import { SITE } from "@/config";
+
+import Link from "@/components/Link.astro";
+
+import ImageLogo from "@/assets/logo-120x40.png";
+---
+
+<Link
+  class="shrink-0"
+  href="/"
+  title={SITE.siteName}
+>
+  <Image class="w-auto h-10" src={ImageLogo} alt={`${SITE.siteName}のロゴ`} loading="eager" />
+  <p class="sr-only">{SITE.siteName}</p>
+</Link>

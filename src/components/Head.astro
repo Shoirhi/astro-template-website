@@ -1,0 +1,122 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+import { SEO } from "astro-seo";
+
+import type { Path, OGType, OGImageMIMEType, XTwitterUsername } from "@/types";
+
+interface Props {
+  title?: string;
+  siteName: string;
+  titleDefault: string;
+  description?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  ogType: OGType;
+  ogImage: Path;
+  ogImageType: OGImageMIMEType;
+  ogImageAlt: string;
+  ogLocale: string;
+  xTwitterUsername: XTwitterUsername;
+}
+
+const {
+  title,
+  siteName,
+  titleDefault,
+  description,
+  noindex = false,
+  nofollow = false,
+  ogType,
+  ogImage,
+  ogImageType,
+  ogImageAlt,
+  ogLocale,
+  xTwitterUsername,
+} = Astro.props;
+---
+
+<head>
+  <SEO
+    title={title}
+    titleTemplate=`%s - ${siteName}`
+    titleDefault={titleDefault}
+    description={description}
+    noindex={noindex}
+    nofollow={nofollow}
+    charset="UTF-8"
+    openGraph={{
+      basic: {
+        title: title
+          ? `${title} | ${Astro.url.host}`
+          : `${titleDefault} | ${Astro.url.host}`,
+        type: ogType,
+        image: `${Astro.url.origin}${ogImage}`,
+      },
+      optional: {
+        description: description,
+        locale: ogLocale,
+        siteName: siteName,
+      },
+      image: {
+        type: ogImageType,
+        width: 1280,
+        height: 630,
+        alt: ogImageAlt,
+      },
+    }}
+    twitter={{
+      card: "summary_large_image",
+      site: xTwitterUsername,
+      title: title
+        ? `${title} | ${Astro.url.host}`
+        : `${titleDefault} | ${Astro.url.host}`,
+      image: `${Astro.url.origin}${ogImage}`,
+      imageAlt: ogImageAlt,
+      description: description,
+    }}
+    extend={{
+      link: [
+        {
+          rel: "icon",
+          type: "image/svg+xml",
+          href: `/favicon.svg`,
+        },
+        {
+          rel: "shortcut icon",
+          href: `/favicon.ico`,
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "48x48",
+          href: "/favicon-48x48.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/apple-touch-icon.png",
+        },
+        {
+          rel: "manifest",
+          href: "/site.webmanifest",
+        },
+        {
+          rel: "sitemap",
+          href: "/sitemap-index.xml",
+        },
+      ],
+      meta: [
+        {
+          name: "viewport",
+          content: "width=device-width",
+        },
+        {
+          name: "generator",
+          content: Astro.generator,
+        },
+      ],
+    }}
+  />
+  <ViewTransitions />
+</head>

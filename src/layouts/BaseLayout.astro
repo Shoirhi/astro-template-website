@@ -1,0 +1,61 @@
+---
+import "@/styles/globals.css";
+
+import { SITE, NAVIGATION } from "@/config";
+
+import type { Path, OGType, OGImageMIMEType } from "@/types";
+
+import Head from "@/components/Head.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  ogType?: OGType;
+  ogImage?: Path;
+  ogImageType?: OGImageMIMEType;
+  ogImageAlt?: string;
+}
+
+const {
+  title,
+  description,
+  noindex = false,
+  nofollow = false,
+  ogType,
+  ogImage,
+  ogImageType,
+  ogImageAlt,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.lang} class="scroll-smooth">
+  <Head
+    title={title}
+    siteName={SITE.siteName}
+    titleDefault={SITE.titleDefault}
+    description={description || SITE.descriptionDefault}
+    noindex={noindex}
+    nofollow={nofollow}
+    ogType={ogType || SITE.ogTypeDefault}
+    ogImage={ogImage || SITE.ogImageDefault}
+    ogImageType={ogImageType || SITE.ogImageTypeDefault}
+    ogImageAlt={ogImageAlt || SITE.ogImageAltDefault}
+    ogLocale={SITE.ogLocale}
+    xTwitterUsername={SITE.xTwitterUsername}
+  />
+  <body class="min-h-dvh">
+    <Header navigation={NAVIGATION} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import "@/scripts/adjustViewport.js";
+    </script>
+  </body>
+</html>

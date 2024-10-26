@@ -1,0 +1,34 @@
+---
+import LogoButton from "@/components/LogoButton.astro";
+import Container from "@/components/Container.astro";
+import HeaderNavigationPC from "./HeaderNavigationPC";
+import HeaderNavigationSP from "@/components/HeaderNavigationSP";
+
+import type { Navigation } from "@/types";
+
+interface Props {
+  navigation: Navigation;
+}
+
+const { navigation } = Astro.props;
+---
+
+<header>
+  <Container class="py-2">
+    <div class="flex justify-between items-center">
+      <LogoButton />
+      <div class="flex justify-center items-center gap-x-5">
+        <HeaderNavigationPC
+          navigation={navigation}
+          currentPath={Astro.url.pathname}
+          client:only="react"
+        />
+        <HeaderNavigationSP
+          navigation={navigation}
+          currentPath={Astro.url.pathname}
+          client:only="react"
+        />
+      </div>
+    </div>
+  </Container>
+</header>
