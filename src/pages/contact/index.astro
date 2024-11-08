@@ -1,0 +1,13 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+
+import ContactForm from "@/features/contact/components/ContactForm";
+
+const pageTitle = "お問い合わせ";
+const pageDescription =
+  "お問い合せページです。ご不明な点やお仕事の依頼など、どんな内容でもお気軽にお問い合わせください。";
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <ContactForm client:only="react" />
+</PageLayout>

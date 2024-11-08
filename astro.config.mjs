@@ -1,18 +1,14 @@
 // @ts-check
-// @ts-check
 import { defineConfig } from "astro/config";
 
 import react from "@astrojs/react";
-
-import tailwind from "@astrojs/tailwind";
-
-import cloudflare from "@astrojs/cloudflare";
-
 import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-template-common.pages.dev/", //同じ値をconfig/constantsのENVIRONMENTに設定
+  site: "https://astro-template-website.pages.dev/", //同じ値をconfig/constantsのENVIRONMENTに設定
   integrations: [
     react(),
     tailwind({

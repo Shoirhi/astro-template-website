@@ -3,16 +3,17 @@ export const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 export const SITE: Site = {
   website: IS_PRODUCTION
-    ? "https://astro-template-common.pages.dev/" //同じ値をastro.config.mjsのsiteに設定
+    ? "https://astro-template-website.pages.dev/" //同じ値をastro.config.mjsのsiteに設定
     : "http://localhost:4321/",
   base: "/",
-  siteName: "Astro Template Common",
-  titleDefault: "Astro Template Common",
-  descriptionDefault: "A template of Astro Common Components.",
+  siteName: "Astro Template Website",
+  titleDefault: "Astro Template Website（Astroで作るWebサイト）",
+  descriptionDefault:
+    "Astro Template Websiteは、AstroをベースにWebサイトを開発するための、ベーシックなテンプレートです。よく使う便利機能やUIライブラリ、アクセシビリティとユーザビリティのベストプラクティスを用いて、どんなWebサイトにも応用できるテンプレートとなっております。どなたでも自由にご利用可能です。",
   ogTypeDefault: "website",
   ogImageDefault: "/opengraph-image-1200x630.jpg",
   ogImageTypeDefault: "image/jpeg",
-  ogImageAltDefault: "This is the site image.",
+  ogImageAltDefault: "Astro Template Website",
   lang: "ja",
   ogLocale: "ja_JP",
   xTwitterUsername: "@bolstatech",
@@ -20,8 +21,8 @@ export const SITE: Site = {
 
 export const NAVIGATION: Navigation = [
   {
-    title: "Smaple Page 1",
-    path: "/sample-page-1",
+    title: "お問い合わせ",
+    path: "/contact",
   },
   {
     title: "Group 1",

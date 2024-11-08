@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import Container from "@/components/Container.astro";
+
+import type { Path, OGType, OGImageMIMEType } from "@/types";
+
+interface Props {
+  parentPages?: Array<{
+    title: string;
+    href: string;
+  }>;
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  ogType?: OGType;
+  ogImage?: Path;
+  ogImageType?: OGImageMIMEType;
+  ogImageAlt?: string;
+}
+
+const {
+  parentPages,
+  title,
+  description,
+  noindex = false,
+  nofollow = false,
+  ogType,
+  ogImage,
+  ogImageType,
+  ogImageAlt,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  noindex={noindex}
+  nofollow={nofollow}
+  ogType={ogType}
+  ogImage={ogImage}
+  ogImageType={ogImageType}
+  ogImageAlt={ogImageAlt}
+>
+  <Container class="py-12">
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">ホーム</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        {parentPages && parentPages.map((item)=>(
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/components">{item.title}</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+        ))}
+        <BreadcrumbItem>
+          <BreadcrumbPage>{title}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+
+    <h1 class="mt-8 text-3xl font-bold">{title}</h1>
+    <div class="mt-12">
+      <slot />
+    </div>
+  </Container>
+</BaseLayout>
