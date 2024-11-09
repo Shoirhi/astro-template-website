@@ -1,3 +1,5 @@
+import { load } from "cheerio";
+
 export const formatDate = (date?: string) => {
   if (date) {
     const utcDate = new Date(date);
@@ -10,4 +12,16 @@ export const formatDate = (date?: string) => {
   } else {
     return
   }
+};
+
+export const adjustImageSizeAndFormat = (blogContent: string) => {
+  const $ = load(blogContent);
+
+  $("img").each((_, img) => {
+    $(img).attr("src", $(img).attr("src") + "?fit=clip&w=560&fm=webp");
+    $(img).attr("width", "655");
+    $(img).attr("height", "655");
+  });
+
+  return $.html();
 };

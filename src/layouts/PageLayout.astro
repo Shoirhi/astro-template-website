@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import Container from "@/components/Container.astro";
 
-import type { Path, OGType, OGImageMIMEType } from "@/types";
+import type { OGType, OGImageMIMEType } from "@/types";
 
 interface Props {
   parentPages?: Array<{
@@ -23,7 +23,7 @@ interface Props {
   noindex?: boolean;
   nofollow?: boolean;
   ogType?: OGType;
-  ogImage?: Path;
+  ogImage?: string;
   ogImageType?: OGImageMIMEType;
   ogImageAlt?: string;
 }

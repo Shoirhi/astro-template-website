@@ -45,3 +45,7 @@ AstroでWebサイトを開発するためのテンプレート。
 - [microcms-js-sdk](https://github.com/microcmsio/microcms-js-sdk)を用いた[microCMS](https://microcms.io/)との連携
 - 記事一覧ページ
 - ページネーション
+- カテゴリー昨日
+- 記事のメタディスクリプション
+- 記事のサムネイル画像
+- microCMSから取得した画像をwebpに変換

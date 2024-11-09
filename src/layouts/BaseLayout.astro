@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 
 import { SITE, NAVIGATION } from "@/config";
 
-import type { Path, OGType, OGImageMIMEType } from "@/types";
+import type { OGType, OGImageMIMEType } from "@/types";
 
 import Head from "@/components/Head.astro";
 import Header from "@/components/Header.astro";
@@ -15,7 +15,7 @@ interface Props {
   noindex?: boolean;
   nofollow?: boolean;
   ogType?: OGType;
-  ogImage?: Path;
+  ogImage?: string;
   ogImageType?: OGImageMIMEType;
   ogImageAlt?: string;
 }
@@ -38,11 +38,11 @@ const {
     title={title}
     siteName={SITE.siteName}
     titleDefault={SITE.titleDefault}
-    description={description || SITE.descriptionDefault}
+    description={description}
     noindex={noindex}
     nofollow={nofollow}
     ogType={ogType || SITE.ogTypeDefault}
-    ogImage={ogImage || SITE.ogImageDefault}
+    ogImage={ogImage || Astro.url.origin + SITE.ogImageDefault}
     ogImageType={ogImageType || SITE.ogImageTypeDefault}
     ogImageAlt={ogImageAlt || SITE.ogImageAltDefault}
     ogLocale={SITE.ogLocale}

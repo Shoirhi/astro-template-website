@@ -3,7 +3,7 @@ import { ViewTransitions } from "astro:transitions";
 
 import { SEO } from "astro-seo";
 
-import type { Path, OGType, OGImageMIMEType, XTwitterUsername } from "@/types";
+import type { OGType, OGImageMIMEType, XTwitterUsername } from "@/types";
 
 interface Props {
   title?: string;
@@ -13,7 +13,7 @@ interface Props {
   noindex?: boolean;
   nofollow?: boolean;
   ogType: OGType;
-  ogImage: Path;
+  ogImage: string;
   ogImageType: OGImageMIMEType;
   ogImageAlt: string;
   ogLocale: string;
@@ -51,7 +51,7 @@ const {
           ? `${title} | ${Astro.url.host}`
           : `${titleDefault} | ${Astro.url.host}`,
         type: ogType,
-        image: `${Astro.url.origin}${ogImage}`,
+        image: ogImage,
       },
       optional: {
         description: description,
