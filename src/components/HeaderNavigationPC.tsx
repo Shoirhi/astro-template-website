@@ -17,7 +17,7 @@ export default ({ navigation, currentPath }: { navigation: Navigation, currentPa
     <div className="hidden lg:flex gap-x-2">
       {navigation.map((item, index) => item.child ?
         <HoverCard key={index} openDelay={100} closeDelay={100}>
-          <HoverCardTrigger className={NavigationItemBase({ currentPath: currentPath, targetPath: item.path })}>
+          <HoverCardTrigger href={item.path} className={NavigationItemBase({ currentPath: currentPath, targetPath: item.path })}>
             {item.title}<IoIosArrowDown className="w-3 h-3 group-data-[state=open]:rotate-180 duration-150" />
           </HoverCardTrigger>
           <HoverCardContent className="grid grid-cols-1 gap-y-1">

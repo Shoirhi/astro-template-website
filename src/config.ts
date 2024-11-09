@@ -33,10 +33,6 @@ export const NAVIGATION: Navigation = [
     path: "/group-1/",
     child: [
       {
-        title: "Group 1 Top",
-        path: "/group-1/",
-      },
-      {
         title: "Smaple Page 2",
         path: "/group-1/sample-page-2",
       },
@@ -46,10 +42,6 @@ export const NAVIGATION: Navigation = [
     title: "Group 2",
     path: "/group-2",
     child: [
-      {
-        title: "Group 2 Top",
-        path: "/group-2",
-      },
       {
         title: "Sample Page 3",
         path: "/group-2/sample-page-3",
