@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 import PreviewPosts from "@/features/posts/components/PreviewPosts.astro";
+import { POSTS_CONFIG } from "@/features/posts/config";
 
 import { buttonVariants } from "@/components/ui/button";
 import Container from "@/components/Container.astro";
@@ -18,7 +19,7 @@ const pageDescription = SITE.descriptionDefault
     <div class="space-y-10">
       <h2 class="text-2xl font-bold">投稿一覧</h2>
       <PreviewPosts />
-      <a class={cn("", buttonVariants({ variant: "outline" }))} href=""
+      <a class={cn("", buttonVariants({ variant: "outline" }))} href={POSTS_CONFIG.postsIndexSlug}
         >すべての投稿を見る</a
       >
     </div>
