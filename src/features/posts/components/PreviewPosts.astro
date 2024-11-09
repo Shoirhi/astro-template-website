@@ -1,0 +1,14 @@
+---
+import PostsList from "./PostsList.astro";
+
+import { getPosts } from "../lib/get";
+
+import { POSTS_CONFIG } from "../config";
+
+
+const posts = await getPosts({
+  limit: POSTS_CONFIG.postsForPreview
+})
+---
+
+<PostsList posts={posts.contents} />

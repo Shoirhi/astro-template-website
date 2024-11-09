@@ -1,0 +1,19 @@
+---
+import { getAllPostIds } from '@/features/posts/lib/get';
+
+import Post from '@/features/posts/components/Post.astro';
+
+const { slug } = Astro.params;
+
+export async function getStaticPaths() {
+  const ids = await getAllPostIds();
+
+  return ids.map((id: string) => ({
+    params: {
+      slug: id,
+    },
+  }));
+}
+---
+
+<Post id={slug} />

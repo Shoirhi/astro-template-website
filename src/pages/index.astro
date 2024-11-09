@@ -1,9 +1,22 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-import SampleContent from "@/components/SampleContent.astro"
+import PreviewPosts from "@/features/posts/components/PreviewPosts.astro";
+
+import { buttonVariants } from "@/components/ui/button";
+import Container from "@/components/Container.astro";
+
+import { cn } from "@/lib/utils";
 ---
 
 <BaseLayout>
-	<SampleContent />
+  <Container class="py-12">
+    <div class="space-y-10">
+      <h2 class="text-2xl font-bold">投稿一覧</h2>
+      <PreviewPosts />
+      <a class={cn("", buttonVariants({ variant: "outline" }))} href=""
+        >すべての投稿を見る</a
+      >
+    </div>
+  </Container>
 </BaseLayout>

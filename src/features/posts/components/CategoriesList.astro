@@ -1,0 +1,27 @@
+---
+import CategoriesListItem from "./CategoriesListItem.astro";
+
+import { getAllPostCategories } from "../lib/get";
+
+import { POSTS_CONFIG } from "../config";
+
+interface Props {
+  currentCategoryId?: string;
+}
+
+const { currentCategoryId } = Astro.props;
+
+const categories = await getAllPostCategories();
+---
+
+<div class="flex gap-4">
+  <CategoriesListItem title="すべて" slug={currentCategoryId && POSTS_CONFIG.postsIndexSlug} />
+  {
+    categories.map((category) => (
+      <CategoriesListItem
+        title={category.title}
+        slug={(category.id !== currentCategoryId) ? `${POSTS_CONFIG.postsIndexSlug}/${category.id}` : undefined}
+      />
+    ))
+  }
+</div>

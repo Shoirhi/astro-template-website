@@ -1,0 +1,17 @@
+---
+import type { GetStaticPathsOptions } from "astro";
+
+import { getAllPosts } from "@/features/posts/lib/get";
+import Posts from "@/features/posts/components/Posts.astro"
+import { POSTS_CONFIG } from "@/features/posts/config";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getAllPosts();
+
+  return paginate(posts, { pageSize: POSTS_CONFIG.postsPerPage });
+}
+
+const { page } = Astro.props;
+---
+
+<Posts page={page} />

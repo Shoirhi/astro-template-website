@@ -1,0 +1,46 @@
+---
+import type { Page } from "astro";
+
+import PageLayout from "@/layouts/PageLayout.astro";
+
+import PostsList from "./PostsList.astro";
+import PostsPagination from "./PostsPagination.astro";
+import CategoriesList from "./CategoriesList.astro";
+
+import { getPostCategoryDetail } from "../lib/get";
+
+export interface Props {
+  page: Page;
+  currentCategoryId?: string;
+}
+
+const { page, currentCategoryId } = Astro.props;
+
+if (currentCategoryId) {
+  const category = await getPostCategoryDetail(currentCategoryId);
+
+  var pageTitle = `${category.title}に関する投稿（${page.currentPage}ページ目）`;
+  var pageDescription = `${category.title}に関する投稿の${page.currentPage}ページ目です。`;
+} else {
+  var pageTitle = `全ての投稿（${page.currentPage}ページ目）`;
+  var pageDescription = `全ての投稿の${page.currentPage}ページ目です。`;
+}
+
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <div class="space-y-10">
+    <CategoriesList currentCategoryId={currentCategoryId} />
+    <PostsList posts={page.data} />
+    <PostsPagination
+      currentPage={page.currentPage}
+      lastPage={page.lastPage}
+      url={{
+        next: page.url.next,
+        prev: page.url.prev,
+        first: page.url.first,
+        last: page.url.last,
+      }}
+    />
+  </div>
+</PageLayout>

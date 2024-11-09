@@ -1,0 +1,84 @@
+---
+import {
+  LuChevronFirst,
+  LuChevronLeft,
+  LuChevronRight,
+  LuChevronLast,
+} from "react-icons/lu";
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+} from "@/components/ui/pagination";
+
+interface Props {
+  currentPage: number;
+  lastPage: number;
+  url: {
+    next?: string;
+    prev?: string;
+    first?: string;
+    last?: string;
+  };
+}
+
+const { lastPage, currentPage, url } = Astro.props;
+---
+
+<Pagination>
+  <PaginationContent className="grid grid-cols-[1fr_1fr_auto_1fr_1fr]">
+    {
+      url.first && (
+        <PaginationItem className="col-start-1">
+          <PaginationLink
+            aria-label="最初のページへ"
+            size="icon"
+            href={url.first}
+          >
+            <LuChevronFirst className="w-5 h-5" />
+            <span class="sr-only">最初のページへ</span>
+          </PaginationLink>
+        </PaginationItem>
+      )
+    }
+    {
+      url.prev && (
+        <PaginationItem className="col-start-2">
+          <PaginationLink aria-label="前のページへ" size="icon" href={url.prev}>
+            <LuChevronLeft className="w-5 h-5" />
+            <span class="sr-only">前のページへ</span>
+          </PaginationLink>
+        </PaginationItem>
+      )
+    }
+    <PaginationItem className="px-4 col-start-3">
+      {currentPage} / {lastPage}
+    </PaginationItem>
+    {
+      url.next && (
+        <PaginationItem className="col-start-4">
+          <PaginationLink aria-label="次のページへ" size="icon" href={url.next}>
+            <LuChevronRight className="w-5 h-5" />
+            <span class="sr-only">次のページへ</span>
+          </PaginationLink>
+        </PaginationItem>
+      )
+    }
+    {
+      url.last && (
+        <PaginationItem className="col-start-5">
+          <PaginationLink
+            aria-label="最後のページへ"
+            size="icon"
+            href={url.last}
+          >
+            <LuChevronLast className="w-5 h-5" />
+            <span class="sr-only">最後のページへ</span>
+          </PaginationLink>
+        </PaginationItem>
+      )
+    }
+  </PaginationContent>
+</Pagination>

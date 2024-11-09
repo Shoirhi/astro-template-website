@@ -1,0 +1,22 @@
+---
+import PostsListItem from "./PostsListItem.astro";
+import PostsListEmpty from "./PostsListEmpty.astro"
+
+import type { Post } from "../types";
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts && posts.length !== 0 ?
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {posts.map((post)=>(
+      <PostsListItem id={post.id} title={post.title} imageUrl={post.thumbnail && post.thumbnail.url} categoryTitle={post.category && post.category.title} date={post.publishedAt || post.createdAt} />
+    ))}
+  </div>
+:
+  <PostsListEmpty />
+}

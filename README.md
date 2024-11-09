@@ -40,3 +40,8 @@ AstroでWebサイトを開発するためのテンプレート。
   - [Resend](https://resend.com/)によるメール送信
   - [react email](https://react.email/)によるHTMLメール文の作成
   - [@marsidev/react-turnstile](https://github.com/marsidev/react-turnstile)による[Cloudflare Turnstile](https://www.cloudflare.com/ja-jp/application-services/products/turnstile/)の実装
+
+### 記事ページ
+- [microcms-js-sdk](https://github.com/microcmsio/microcms-js-sdk)を用いた[microCMS](https://microcms.io/)との連携
+- 記事一覧ページ
+- ページネーション

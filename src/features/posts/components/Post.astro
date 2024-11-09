@@ -1,0 +1,56 @@
+---
+import { LuChevronLeft } from "react-icons/lu";
+
+import { Image } from "astro:assets";
+
+import PageLayout from "@/layouts/PageLayout.astro";
+
+import { buttonVariants } from "@/components/ui/button";
+
+import { POSTS_CONFIG } from "../config";
+
+import { getPostDetail } from "../lib/get";
+import { formatDate } from "../lib/utils";
+
+import imageOgp from "@/assets/opengraph-image-1200x630.jpg";
+import { cn } from "@/lib/utils";
+
+export interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+
+const post = await getPostDetail(id as string);
+
+const pageTitle = post.title;
+const pageDescription = post.description;
+---
+
+<PageLayout
+  parentPages={[
+    {
+      title: "記事一覧",
+      href: POSTS_CONFIG.postsIndexSlug,
+    },
+  ]}
+  title={pageTitle}
+  description={pageDescription}
+>
+  <article class="prose">
+    {
+      post.thumbnail && post.thumbnail.url ? (
+        <Image src={post.thumbnail.url} width={1200} height={630} alt="" />
+      ) : (
+        <Image src={imageOgp} alt="" />
+      )
+    }
+    <p>{formatDate(post.publishedAt || post.createdAt)}</p>
+    {post.category && <p>- {post.category.title}</p>}
+    <div set:html={post.content} />
+  </article>
+  <a
+    class={cn(buttonVariants({ variant: "outline" }))}
+    href={POSTS_CONFIG.postsIndexSlug}><LuChevronLeft className="w-5 h-5" />すべての投稿へ</a
+  >
+</PageLayout>

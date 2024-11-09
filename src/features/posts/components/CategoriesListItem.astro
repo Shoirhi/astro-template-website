@@ -1,0 +1,18 @@
+---
+import { Button, buttonVariants } from '@/components/ui/button';
+
+import { cn } from '@/lib/utils';
+
+interface Props {
+  title: string;
+  slug?: string;
+}
+
+const { title, slug } = Astro.props;
+---
+
+{slug ?
+<a class={cn("", buttonVariants({variant: "outline"}))} href={slug}>{title}</a>
+:
+<Button disabled>{title}</Button>
+}

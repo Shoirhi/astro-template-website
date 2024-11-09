@@ -21,6 +21,10 @@ export const SITE: Site = {
 
 export const NAVIGATION: Navigation = [
   {
+    title: "記事",
+    path: "/posts",
+  },
+  {
     title: "お問い合わせ",
     path: "/contact",
   },

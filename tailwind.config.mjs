@@ -60,11 +60,15 @@ export default {
       },
       fontFamily: {
         sans: ["Noto Sans JP", ...defaultTheme.fontFamily.sans],
-        mono: ["Noto Sans Mono", ...defaultTheme.fontFamily.mono]
+        mono: ["Noto Sans Mono", ...defaultTheme.fontFamily.mono],
       },
     },
     screens,
     fontSize,
   },
-  plugins: [require("tailwindcss-animate"), fluid],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    fluid,
+  ],
 };

@@ -1,0 +1,30 @@
+---
+import type { GetStaticPathsOptions } from "astro";
+
+import { getAllPosts, getAllPostCategoryIds } from "@/features/posts/lib/get";
+import Posts from "@/features/posts/components/Posts.astro"
+import { POSTS_CONFIG } from "@/features/posts/config";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const categories = await getAllPostCategoryIds()
+
+  const posts = await getAllPosts();
+
+  return categories.flatMap((category) => {
+    const filteredPosts = posts.filter(
+      (post) => post.category?.id === category
+    );
+    return paginate(filteredPosts, {
+      params: {
+        categoryId: category,
+      },
+      pageSize: POSTS_CONFIG.postsPerPage,
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { categoryId } = Astro.params;
+---
+
+<Posts page={page} currentCategoryId={categoryId} />

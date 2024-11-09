@@ -60,7 +60,7 @@ const {
         <BreadcrumbSeparator />
         {parentPages && parentPages.map((item)=>(
           <BreadcrumbItem>
-            <BreadcrumbLink href="/components">{item.title}</BreadcrumbLink>
+            <BreadcrumbLink href={item.href}>{item.title}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
         ))}
