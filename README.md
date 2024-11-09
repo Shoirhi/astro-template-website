@@ -20,6 +20,7 @@ AstroでWebサイトを開発するためのテンプレート。
 - [Fluid for Tailwind CSS](https://fluid.tw/)による滑らかなレスポンシブ
 - [Cloudflare Pages](https://www.cloudflare.com/ja-jp/developer-platform/products/pages/)へのデプロイ対応
 - フォントファミリーは、Noto Sans JP、Noto Sasn Monoをローカルのフォントファイルから読み込み
+- 404、500のカスタムエラーページ
 
 ### 共通コンポーネント
 - ヘッダーコンポーネント（Header）

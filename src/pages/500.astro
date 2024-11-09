@@ -1,0 +1,18 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+
+import {buttonVariants} from "@/components/ui/button"
+
+const pageTitle = "一時的にアクセスできません";
+const pageDescription =
+  "現在、内部的なエラーもしくはメンテナンスにより、一時的にアクセスできない状況となっております。時間をおいて再度お試しください。";
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <p>現在、内部的なエラーもしくはメンテナンスにより、一時的にアクセスできない状況となっております。<br/>時間をおいて再度お試しください。</p>
+
+  <div class="mt-5 space-y-4">
+    <a class={buttonVariants()} href="/">ホームに戻る</a>
+    <p>お問い合わせ：contact@******</p>
+  </div>
+</PageLayout>

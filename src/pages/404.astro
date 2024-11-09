@@ -1,0 +1,18 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+
+import {buttonVariants} from "@/components/ui/button"
+
+const pageTitle = "お探しのページが見つかりませんでした";
+const pageDescription =
+  "お探しのページが見つかりませんでした。アドレスが変更されているか、ページが削除されている可能性があります。";
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <p>アドレスが変更されているか、ページが削除されている可能性があります。</p>
+
+  <div class="mt-5">
+    <a class={buttonVariants()} href="/">ホームに戻る</a>
+    <a class={buttonVariants({variant: "outline"})} href="/contact">お問い合わせへ</a>
+  </div>
+</PageLayout>
