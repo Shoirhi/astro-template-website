@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Checkbox } from "@/components/ui/checkbox"
+import Link from "@/components/Link";
 
 import { NotifyEmailTemplate } from "./NotifyEmailTemplate"
 import { ReplyEmailTemplate } from "./ReplyEmailTemplate"
@@ -47,7 +49,8 @@ const formSchema = z.object({
     }),
   content: z.string().trim().min(1, {
     message: "お問い合わせ内容を入力してください。",
-  })
+  }),
+  confirm: z.boolean().default(false),
 })
 
 export default () => {
@@ -63,6 +66,7 @@ export default () => {
       name: "",
       email: "",
       content: "",
+      confirm: false,
     },
   })
 
@@ -187,6 +191,24 @@ export default () => {
                 <Textarea placeholder="お問い合わせ内容を入力" rows={6} {...field} />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirm"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  required
+                />
+              </FormControl>
+              <FormLabel>
+                <Link href="/privacy-policy" external>プライバシーポリシー</Link>に同意します
+              </FormLabel>
             </FormItem>
           )}
         />

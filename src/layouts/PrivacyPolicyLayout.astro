@@ -1,0 +1,12 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+
+const pageTitle = "プライバシーポリシー";
+const pageDescription = "プライバシーポリシーページです。";
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <div class="prose">
+    <slot />
+  </div>
+</PageLayout>
