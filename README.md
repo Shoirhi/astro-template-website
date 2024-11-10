@@ -39,7 +39,8 @@ AstroでWebサイトを開発するためのテンプレート。
 - [Resend](https://resend.com/)によるメール送信
 - [react email](https://react.email/)によるHTMLメール文の作成
 - [@marsidev/react-turnstile](https://github.com/marsidev/react-turnstile)による[Cloudflare Turnstile](https://www.cloudflare.com/ja-jp/application-services/products/turnstile/)の実装
-- 送信成功時にポップアップを表示
+- 送信前に、内容の確認ポップアップを表示
+- 送信成功時のポップアップを表示
 - 送信エラー時にはアラートを表示
 - プライバシーポリシーの同意ボタン
 - テストモードあり（フォームを送信しない）

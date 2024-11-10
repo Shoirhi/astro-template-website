@@ -22,6 +22,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   AlertDialog,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -65,11 +66,11 @@ const formSchema = z.object({
 
 export default () => {
 
+  const [check, setCheck] = useState<boolean>(false);
   const [sending, setSending] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [token, setToken] = useState<string>();
-  const [open, setOpen] = useState<boolean>(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -83,13 +84,16 @@ export default () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
-    setSuccess(false);
-    setError(false);
-    setToken("");
+    if (!check) {
+      setCheck(true)
+      return
+    }
+
     setSending(true);
     setTimeout(() => { }, 1000);
 
     if (!token || token === undefined) {
+      setCheck(false)
       setSending(false);
       setError(true)
       return
@@ -106,6 +110,7 @@ export default () => {
     })
 
     if (verify.status !== 200) {
+      setCheck(false)
       setSending(false);
       setError(true)
       return
@@ -133,6 +138,7 @@ export default () => {
     });
 
     if (!notifyRes.ok) {
+      setCheck(false)
       setSending(false);
       setError(true)
       return
@@ -159,6 +165,7 @@ export default () => {
     if (replyRes.ok) {
       setSuccess(true);
     } else {
+      setCheck(false)
       setError(true)
     }
   }
@@ -242,23 +249,6 @@ export default () => {
           <Turnstile siteKey={CONTACT_CONFIG.turnstileSiteKey} options={{
             theme: "light",
           }} onSuccess={setToken} />
-          {success &&
-            <AlertDialog open={open} onOpenChange={setOpen}>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>お問い合わせありがとうございました。</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    お問い合わせいただいた内容を、ご入力いただいたメールアドレスに送信いたしました。<br />
-                    内容を確認後、3営業日以内に返信いたします。
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <a className={cn("", buttonVariants())} href="/">ホームへ</a>
-                  <a className={cn("", buttonVariants({ variant: "outline" }))} href="/contact">閉じる</a>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          }
           {error &&
             <Alert className="mt-12" variant="destructive">
               <LuAlertCircle className="h-4 w-4" />
@@ -268,7 +258,64 @@ export default () => {
               </AlertDescription>
             </Alert>
           }
-          {sending ? <Button disabled>送信中です</Button> : <Button type="submit">送信する</Button>}
+          <AlertDialog open={check} onOpenChange={setCheck}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  {success ?
+                    "お問い合わせありがとうございました。"
+                    :
+                    "内容をご確認ください。"
+                  }
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {success ?
+                    <>お問い合わせいただいた内容を、ご入力いただいたメールアドレスに送信いたしました。<br />
+                      内容を確認後、3営業日以内に返信いたします。</>
+                    :
+                    <>以下の内容でよろしければ、送信ボタンを押してください。</>
+                  }
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              {!success &&
+                <div className="space-y-3">
+                  {[
+                    {
+                      title: "お名前",
+                      value: form.getValues().name
+                    },
+                    {
+                      title: "メールアドレス",
+                      value: form.getValues().email
+                    },
+                    {
+                      title: "お問い合わせ内容",
+                      value: form.getValues().content
+                    },
+                  ].map((item)=>(
+                    <div key={item.title}>
+                      <p className="font-bold">{item.title}</p>
+                      <p>{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              }
+              <AlertDialogFooter>
+                {success ?
+                  <>
+                    <a className={cn("", buttonVariants())} href="/">ホームへ</a>
+                    <a className={cn("", buttonVariants({ variant: "outline" }))} href="/contact">閉じる</a>
+                  </>
+                  :
+                  <>
+                    <AlertDialogCancel onClick={() => setCheck(false)}>入力に戻る</AlertDialogCancel>
+                    {sending ? <Button disabled>送信中です</Button> : <Button onClick={() => onSubmit(form.getValues())}>送信する</Button>}
+                  </>
+                }
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          <Button type="submit">確認画面へ</Button>
         </form>
       </Form>
     </>
