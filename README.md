@@ -21,6 +21,7 @@ AstroでWebサイトを開発するためのテンプレート。
 - [Cloudflare Pages](https://www.cloudflare.com/ja-jp/developer-platform/products/pages/)へのデプロイ対応
 - フォントファミリーは、Noto Sans JP、Noto Sasn Monoをローカルのフォントファイルから読み込み
 - 404、500のカスタムエラーページ
+- プライバシーポリシーページ
 
 ### 共通コンポーネント
 - ヘッダーコンポーネント（Header）
@@ -33,13 +34,15 @@ AstroでWebサイトを開発するためのテンプレート。
 - コンテナコンポーネント（Container）
 
 ### お問い合わせページ
-- F&Qセクション
-- お問い合わせフォームセクション
-  - [react-hook-form](https://www.react-hook-form.com/)の使用
-  - [zod](https://zod.dev/)による入力判定
-  - [Resend](https://resend.com/)によるメール送信
-  - [react email](https://react.email/)によるHTMLメール文の作成
-  - [@marsidev/react-turnstile](https://github.com/marsidev/react-turnstile)による[Cloudflare Turnstile](https://www.cloudflare.com/ja-jp/application-services/products/turnstile/)の実装
+- [react-hook-form](https://www.react-hook-form.com/)の使用
+- [zod](https://zod.dev/)による入力判定
+- [Resend](https://resend.com/)によるメール送信
+- [react email](https://react.email/)によるHTMLメール文の作成
+- [@marsidev/react-turnstile](https://github.com/marsidev/react-turnstile)による[Cloudflare Turnstile](https://www.cloudflare.com/ja-jp/application-services/products/turnstile/)の実装
+- 送信成功時にポップアップを表示
+- 送信エラー時にはアラートを表示
+- プライバシーポリシーの同意ボタン
+- テストモードあり（フォームを送信しない）
 
 ### 記事ページ
 - [microcms-js-sdk](https://github.com/microcmsio/microcms-js-sdk)を用いた[microCMS](https://microcms.io/)との連携
