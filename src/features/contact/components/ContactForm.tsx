@@ -3,7 +3,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { render } from "@react-email/render";
-import { LuAlertCircle, LuMailCheck } from "react-icons/lu";
+import { LuAlertCircle } from "react-icons/lu";
 import { Turnstile } from '@marsidev/react-turnstile'
 
 import {
@@ -22,14 +22,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
 import Link from "@/components/Link";
