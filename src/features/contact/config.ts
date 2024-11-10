@@ -6,4 +6,5 @@ export const CONTACT_CONFIG: ContactConfigProps = {
   fromEmail: "contact@send.bolstatech.com",
   notifyEmail: "info@bolstatech.com",
   turnstileSiteKey: "1x00000000000000000000AA",
+  testMode: true,
 };

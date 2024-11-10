@@ -4,4 +4,5 @@ export interface ContactConfigProps {
   fromEmail: string;
   notifyEmail: string;
   turnstileSiteKey: string;
+  testMode: boolean;
 }

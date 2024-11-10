@@ -17,15 +17,28 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 import Link from "@/components/Link";
 
 import { NotifyEmailTemplate } from "./NotifyEmailTemplate"
 import { ReplyEmailTemplate } from "./ReplyEmailTemplate"
 
 import { CONTACT_CONFIG } from "../config";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string()
@@ -59,6 +72,7 @@ export default () => {
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [token, setToken] = useState<string>();
+  const [open, setOpen] = useState<boolean>(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -97,6 +111,12 @@ export default () => {
     if (verify.status !== 200) {
       setSending(false);
       setError(true)
+      return
+    }
+
+    if (CONTACT_CONFIG.testMode) {
+      setSending(false);
+      setSuccess(true);
       return
     }
 
@@ -147,95 +167,114 @@ export default () => {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>お名前<Required /></FormLabel>
-              <FormControl>
-                <Input placeholder="お名前を入力" type="text" autoComplete="name" {...field} />
-              </FormControl>
-              <FormDescription>
-                例）山田 太郎
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>メールアドレス<Required /></FormLabel>
-              <FormControl>
-                <Input placeholder="メールアドレスを入力" type="email" autoComplete="email" {...field} />
-              </FormControl>
-              <FormDescription>
-                例）contact@example.com
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>お問い合せ内容<Required /></FormLabel>
-              <FormControl>
-                <Textarea placeholder="お問い合わせ内容を入力" rows={6} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirm"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  required
-                />
-              </FormControl>
-              <FormLabel>
-                <Link href="/privacy-policy" external>プライバシーポリシー</Link>に同意します
-              </FormLabel>
-            </FormItem>
-          )}
-        />
-        <Turnstile siteKey={CONTACT_CONFIG.turnstileSiteKey} options={{
-          theme: "light",
-        }} onSuccess={setToken} />
-        {success &&
-          <Alert className="mt-12">
-            <LuMailCheck className="h-4 w-4" />
-            <AlertTitle>お問い合わせありがとうございました</AlertTitle>
-            <AlertDescription>
-              ご入力いただいた内容を確認後、返信致します。
-            </AlertDescription>
-          </Alert>
-        }
-        {error &&
-          <Alert className="mt-12" variant="destructive">
-            <LuAlertCircle className="h-4 w-4" />
-            <AlertTitle>エラーが発生しました。</AlertTitle>
-            <AlertDescription>
-              大変申し訳ありませんが、時間をおいてから再度お問い合わせください。
-            </AlertDescription>
-          </Alert>
-        }
-        {sending ? <Button disabled>送信中です</Button> : <Button type="submit">送信する</Button>}
-      </form>
-    </Form>
+    <>
+      {CONTACT_CONFIG.testMode &&
+        <Alert className="mt-12 mb-10" variant="destructive">
+          <LuAlertCircle className="h-4 w-4" />
+          <AlertTitle>現在テストモードです。</AlertTitle>
+          <AlertDescription>
+            このフォームは現在テストモードです。実際には送信されません。
+          </AlertDescription>
+        </Alert>
+      }
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl space-y-8">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>お名前<Required /></FormLabel>
+                <FormControl>
+                  <Input placeholder="お名前を入力" type="text" autoComplete="name" {...field} />
+                </FormControl>
+                <FormDescription>
+                  例）山田 太郎
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>メールアドレス<Required /></FormLabel>
+                <FormControl>
+                  <Input placeholder="メールアドレスを入力" type="email" autoComplete="email" {...field} />
+                </FormControl>
+                <FormDescription>
+                  例）contact@example.com
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>お問い合せ内容<Required /></FormLabel>
+                <FormControl>
+                  <Textarea placeholder="お問い合わせ内容を入力" rows={6} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirm"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    required
+                  />
+                </FormControl>
+                <FormLabel>
+                  <Link href="/privacy-policy" external>プライバシーポリシー</Link>に同意します
+                </FormLabel>
+              </FormItem>
+            )}
+          />
+          <Turnstile siteKey={CONTACT_CONFIG.turnstileSiteKey} options={{
+            theme: "light",
+          }} onSuccess={setToken} />
+          {success &&
+            <AlertDialog open={open} onOpenChange={setOpen}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>お問い合わせありがとうございました。</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    お問い合わせいただいた内容を、ご入力いただいたメールアドレスに送信いたしました。<br />
+                    内容を確認後、3営業日以内に返信いたします。
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <a className={cn("", buttonVariants())} href="/">ホームへ</a>
+                  <a className={cn("", buttonVariants({ variant: "outline" }))} href="/contact">閉じる</a>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          }
+          {error &&
+            <Alert className="mt-12" variant="destructive">
+              <LuAlertCircle className="h-4 w-4" />
+              <AlertTitle>エラーが発生しました。</AlertTitle>
+              <AlertDescription>
+                大変申し訳ありませんが、時間をおいてから再度お問い合わせください。
+              </AlertDescription>
+            </Alert>
+          }
+          {sending ? <Button disabled>送信中です</Button> : <Button type="submit">送信する</Button>}
+        </form>
+      </Form>
+    </>
   )
 }
 
