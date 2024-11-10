@@ -52,3 +52,6 @@ AstroでWebサイトを開発するためのテンプレート。
 - 記事のメタディスクリプション
 - 記事のサムネイル画像
 - microCMSから取得した画像をwebpに変換
+
+## microCMSでの設定について
+microCMSのwebhook機能を使って、CMSのコンテンツの更新時にCloudflare Pagesの再デプロイをするように連携をする。
