@@ -3,6 +3,21 @@ AstroでWebサイトを開発するためのテンプレート。
 ## サンプルサイト
 [https://astro-template-website.pages.dev/](https://astro-template-website.pages.dev/)
 
+## Astroのインストールでテンプレートとして利用する方法
+
+プロジェクトフォルダ内で以下のコマンドを実行する。
+
+```
+npm create astro@latest . -- --template Shoirhi/astro-template-website
+```
+
+質問は以下のように回答する。
+
+- Do you plan to write TypeScript? : Yes
+- How strict should TypeScript be? : Strict
+- Install dependencies? : Yes
+- Initialize a new git repository? : Yes
+
 ## 概要
 
 ### 前提ライブラリ
