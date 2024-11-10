@@ -237,7 +237,7 @@ export default () => {
                   />
                 </FormControl>
                 <FormLabel>
-                  <Link href="/privacy-policy" external>プライバシーポリシー</Link>に同意します
+                  <Link className="underline" href="/privacy-policy" external>プライバシーポリシー</Link>に同意します
                 </FormLabel>
               </FormItem>
             )}
